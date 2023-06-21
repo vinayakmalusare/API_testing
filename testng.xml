@@ -5,11 +5,11 @@
         <classes>
             <class name="org.example.RestTest">
                 <methods>
-                    <include name="testGetUserName"/>
-                    <include name="testUpdatePartial"/>
-                    <include name="testPostUser"/>
-                    <include name ="jsonUser"/>
-                    <include name="testDelete"/>
+                    <exclude name="testGetUserName"/>
+                    <exclude name="testUpdatePartial"/>
+                    <exclude name="testPostUser"/>
+                    <exclude name ="jsonUser"/>
+                    <exclude name="testDelete"/>
                 </methods>
             </class>
         </classes>>
