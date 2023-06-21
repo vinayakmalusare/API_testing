@@ -2,6 +2,8 @@ package org.example;
 
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
@@ -38,22 +40,22 @@ public class RestTest {
 
     @Test
     public void testUpdatePartial(){
-    given()
-            .when()
-            .log()
-            .all()
-            .body("{\n" +
-            "    \"name\": \"Vinayak\",\n" +
-                    "    \"job\": \"QA\"\n" +
-                    "}").contentType(ContentType.JSON);
-            when()
-                    .patch(BASE_URL+ "/api/users/2")
-            .then()
-            .log()
-            .all()
-            .statusCode(200)
-                    .body("name", equalTo("Vinayak"))
-                    .body("job", equalTo("QA"));
+        given()
+                .when()
+                .body("{\n" +
+                        "    \"name\": \"Vinayak\",\n" +
+                        "    \"job\": \"QA\"\n" +
+                        "}").contentType(ContentType.JSON)
+                .log()
+                .all()
+                .patch(BASE_URL +"/api/users/2")
+                .then()
+                .log()
+                .all()
+                .statusCode(200)
+                .body("name", equalTo("Vinayak"))
+                .body("job", equalTo("QA"))
+                .body("updatedAt",notNullValue());
 
        }
 
@@ -77,5 +79,18 @@ public class RestTest {
             .body("id", notNullValue())
                 .body("createdAt",notNullValue());
     }
-
+// to read json File
+    @Test
+    public void jsonUser() {
+            String responseBody = given ().when ()
+                    .queryParam ("page", "2")
+                    .get (BASE_URL +"/api/users/")
+                    .getBody().asString();
+            System.out.print(responseBody);
+        JSONObject jsonObject = new JSONObject(responseBody);
+        JSONArray jsonArray = jsonObject.getJSONArray("data");
+        JSONObject dataObject = jsonArray.getJSONObject(0);
+        String firstName = dataObject.get("first_name").toString();
+        System.out.println(firstName);
+        }
     }
