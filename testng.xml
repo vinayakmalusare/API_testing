@@ -20,6 +20,8 @@
                 <methods>
                     <include name="testCreateBooking"/>
                     <include name ="getBooking"/>
+                    <include name ="testGenerateToken"/>
+                    <include name ="testUpdateBooking"/>
                 </methods>
             </class>
         </classes>>
