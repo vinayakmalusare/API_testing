@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name ="Test NG Demo">
-    <test name ="multiple tests">
+    <test name ="multiple tests" enabled="false">
         <classes>
             <class name="org.example.RestTest">
                 <methods>
@@ -10,6 +10,16 @@
                     <include name="testPostUser"/>
                     <include name ="jsonUser"/>
                     <include name="testDelete"/>
+                </methods>
+            </class>
+        </classes>>
+    </test>
+    <test name ="RestfulBookerTest" enabled="true">
+        <classes>
+            <class name="org.example.RestfulBookerTest">
+                <methods>
+                    <include name="testCreateBooking"/>
+                    <include name ="getBooking"/>
                 </methods>
             </class>
         </classes>>
