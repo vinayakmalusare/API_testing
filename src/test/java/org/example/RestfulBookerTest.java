@@ -1,9 +1,11 @@
 package org.example;
 import data.CreateBookingData;
+import data.PartialUpdate;
 import data.TokenData;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import static data.CreateBookingDataBuilder.getBookingData;
+import static data.PartialUpdateDataBuilder.getPartialData;
 import static data.TokenBuilder.getToken;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
@@ -42,7 +44,6 @@ private String token;
     @Test
     public void getBooking(){
 
-        System.out.print(bookingid);
         given()
                 .when()
                 .log()
@@ -99,4 +100,58 @@ private String token;
                 .body("token",is(notNullValue())).extract().path("token");
 
     }
+
+    @Test
+    public void testPartialUpdate(){
+        PartialUpdate partialdata = getPartialData();
+        given()
+                .when()
+                .header("Content-Type","application/json")
+                .header("Accept","application/json")
+                .header("Cookie","token="+token)
+                .log()
+                .all()
+                .body(partialdata)
+                .patch("https://restful-booker.herokuapp.com/booking/"+bookingid)
+                .then()
+                .log()
+                .all()
+                .statusCode(200)
+                .body("firstname", equalTo(partialdata.getFirstname())
+                        ,"lastname",equalTo(partialdata.getLastname()));
+    }
+
+    @Test
+
+    public void testDelete(){
+
+        given()
+                .when()
+                .header("Content-Type","application/json")
+                .header("Cookie","token="+token)
+                .log()
+                .all()
+                .delete("https://restful-booker.herokuapp.com/booking/"+bookingid)
+                .then()
+                .log()
+                .all()
+                .statusCode(201);
+    }
+
+    @Test
+    public void testDeletedBooking(){
+
+        given()
+                .when()
+                .log()
+                .all()
+                .get("https://restful-booker.herokuapp.com/booking/"+bookingid)
+                .then()
+                .log()
+                .all()
+                .statusCode(404);
+
+
+    }
+
 }

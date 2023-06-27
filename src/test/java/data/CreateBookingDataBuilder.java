@@ -22,5 +22,8 @@ public class CreateBookingDataBuilder {
                         .checkout(formatter.format(FAKER.date().future(20, TimeUnit.DAYS))).build())
                 .additionalneeds("LUNCH").build();
 
+
     }
+
+
 }

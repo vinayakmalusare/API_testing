@@ -10,6 +10,8 @@
                     <include name="testPostUser"/>
                     <include name ="jsonUser"/>
                     <include name="testDelete"/>
+                    <include name="testDeletedBooking"/>
+
                 </methods>
             </class>
         </classes>>
@@ -22,6 +24,9 @@
                     <include name ="getBooking"/>
                     <include name ="testGenerateToken"/>
                     <include name ="testUpdateBooking"/>
+                    <include name ="testPartialUpdate"/>
+                    <include name ="testDelete"/>
+                    <include name ="testDeletedBooking"/>
                 </methods>
             </class>
         </classes>>
